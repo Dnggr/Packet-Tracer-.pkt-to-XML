@@ -86,13 +86,13 @@ I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packe
 
 ## 5. Upstream oracle
 
-- [ ] **21. build-upstream.sh** — `scripts/build-upstream.sh`
+- [x] **21. build-upstream.sh** — `scripts/build-upstream.sh`
   > Write scripts/build-upstream.sh: clone github.com/mircodz/pka2xml, check out commit 22fee2681779a6dd764d6562b0a134ceb339e770, install deps on Ubuntu (libcrypto++-dev libre2-dev zlib1g-dev), build with g++, and place the binary at .upstream/pka2xml. Fail on any error; print the pinned SHA at the end.
 
-- [ ] **22. Differential test** — `tests/differential.test.ts`
+- [x] **22. Differential test** — `tests/differential.test.ts`
   > Write tests/differential.test.ts: for random XML of sizes 0 to 25 MB (including 46340, 46341, 46342), run upstream -e to make a .pkt, then assert port output equals the original XML and equals upstream -d output. Skip with a clear message if the binary is missing locally, but FAIL when process.env.CI is set. `[paste convert.ts]`
 
-- [ ] **23. Fixtures README + golden test** — `tests/fixtures/README.md`
+- [x] **23. Fixtures README + golden test** — `tests/fixtures/README.md`
   > Write tests/fixtures/README.md defining the provenance table (origin, Packet Tracer version, date, license, contains-private-data), the rule that only self-authored labs get committed, and the naming scheme name.pkt + name.golden.xml. Also write a tiny Vitest golden test that loops over tests/fixtures/user-authored and compares port output to the golden XML byte for byte.
 
 - [ ] **24. Real-file gate G0 (manual, not a prompt)** — your machine

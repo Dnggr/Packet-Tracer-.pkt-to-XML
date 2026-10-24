@@ -11,7 +11,7 @@ export default defineConfig({
   worker: { format: 'es' },
   test: {
     environment: 'node',
-    include: ['tests/unit/**/*.test.ts', 'tests/differential.test.ts'],
+    include: ['tests/unit/**/*.test.ts', 'tests/differential.test.ts', 'tests/golden.test.ts'],
     exclude: ['tests/e2e/**', 'node_modules/**', 'dist/**'],
   },
 });

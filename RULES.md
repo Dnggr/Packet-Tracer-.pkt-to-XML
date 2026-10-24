@@ -6,4 +6,4 @@
    `// Derived from pka2xml (c) 2020 Mirco De Zorzi, BSD-2-Clause. See NOTICE.md.`
 4. Strict TypeScript. Converter code is pure functions on `Uint8Array`, with no DOM access.
 5. Verify before delivering: typecheck and run tests. Do not claim a check passed without running it.
-6. When a checklist task is finished and verified, tick its box in `CHECKLIST.md` and include the updated file in the zip.
+6. Check every finished task in `CHECKLIST.md`: after the work is done and verified, tick its box (`- [x]`) and include the modified `CHECKLIST.md` in the zip. Never tick before verifying. Manual tasks (for example 24) stay unticked until the user confirms the result.

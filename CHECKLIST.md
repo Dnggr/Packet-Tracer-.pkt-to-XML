@@ -4,7 +4,7 @@ Each task is small enough to finish in **one Claude prompt**. Tick the box when 
 
 **How to use:** start a new chat, attach `pkt.xml` (the plan docs), paste the *Shared context* below, then paste the task prompt. When a prompt ends with `[paste ...]`, paste the current version of those files.
 
-**Out of scope here:** `index.html`, `src/main.ts`, `src/style.css`, Playwright e2e tests (T09, T17-T19, T21-T23, T25).
+**Out of scope here:** Playwright e2e tests (T09, T17-T19, T21-T23, T25).
 
 ## Shared context (paste first in every chat)
 
@@ -100,14 +100,22 @@ I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packe
 
 ## 6. Config and docs
 
-- [ ] **25. vercel.json** — `vercel.json`
+- [x] **25. vercel.json** — `vercel.json`
   > Write vercel.json with security headers: the CSP from SECURITY_AND_PRIVACY section 5 (connect-src 'none', worker-src 'self'), X-Content-Type-Options nosniff, Referrer-Policy no-referrer, and a restrictive Permissions-Policy. Static output from dist, no functions.
 
-- [ ] **26. CI workflow** — `.github/workflows/ci.yml`
+- [x] **26. CI workflow** — `.github/workflows/ci.yml`
   > Write .github/workflows/ci.yml: checkout, Node LTS, npm ci, typecheck, unit tests, run scripts/build-upstream.sh with caching, differential tests with CI=true, then build. Block merge on any failure.
 
-- [ ] **27. README** — `README.md`
+- [x] **27. README** — `README.md`
   > Rewrite README.md for the implemented state: what it does, privacy statement, scripts (dev, build, test, typecheck), how to build the upstream oracle, deploy steps to Vercel from GitHub with no env vars, and a link to NOTICE.md. Remove the PLANNING ONLY banner.
+
+## 7. UI and deploy
+
+- [x] **28. Simple UI** — `index.html`, `src/main.ts`, `src/style.css`
+  > Single page: title, explanation, privacy notice, drag-and-drop and file picker, file name and size, Convert, status, Download, Convert another, Copy diagnostics, footer with NOTICE link. State machine per ARCHITECTURE section 3. No inline scripts or styles (CSP).
+
+- [ ] **29. Deploy to Vercel (manual, not a prompt)** — your GitHub and Vercel accounts
+  > Follow the Deploy section of README.md, then run the smoke test in TESTING_PLAN section 5. Do task 24 first.
 
 ---
 

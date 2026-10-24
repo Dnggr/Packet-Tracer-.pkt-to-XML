@@ -7,11 +7,6 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK="$ROOT/.upstream/src"
 OUT="$ROOT/.upstream/pka2xml"
 
-if [ -x "$OUT" ] && [ -f "$ROOT/.upstream/SHA" ] && [ "$(cat "$ROOT/.upstream/SHA")" = "$PINNED_SHA" ]; then
-  echo "upstream already built at $PINNED_SHA"
-  exit 0
-fi
-
 PACKAGES=(g++ git libcrypto++-dev libre2-dev zlib1g-dev)
 MISSING=()
 for pkg in "${PACKAGES[@]}"; do
@@ -25,6 +20,11 @@ if [ "${#MISSING[@]}" -gt 0 ]; then
   fi
   $SUDO apt-get update
   $SUDO apt-get install -y --no-install-recommends "${MISSING[@]}"
+fi
+
+if [ -x "$OUT" ] && [ -f "$ROOT/.upstream/SHA" ] && [ "$(cat "$ROOT/.upstream/SHA")" = "$PINNED_SHA" ]; then
+  echo "upstream already built at $PINNED_SHA"
+  exit 0
 fi
 
 rm -rf "$WORK"

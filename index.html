@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="description" content="Convert a Cisco Packet Tracer .pkt file to XML in your browser. Nothing is uploaded." />
+    <title>Packet Tracer .pkt to XML</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Packet Tracer .pkt to XML</h1>
+      <p class="lead">
+        Convert your own Packet Tracer file to XML you can read, search, or give to an AI assistant to inspect your lab.
+      </p>
+
+      <section class="notice" aria-label="Privacy">
+        <p>
+          <strong>Your file is converted in your browser.</strong> It is not uploaded, stored, or sent to any server by
+          this site. Hosting sees the normal request for this page, not your file.
+        </p>
+        <p>
+          The XML can contain device passwords, SNMP communities, and IP plans. Review it before pasting it into an AI
+          service or sharing it.
+        </p>
+      </section>
+
+      <noscript><p class="error">This tool needs JavaScript to convert files in your browser.</p></noscript>
+
+      <label id="dropzone" class="dropzone" for="file">
+        <span class="dropzone-title">Drop a .pkt file here</span>
+        <span class="dropzone-sub">or click to choose one (up to 25 MB)</span>
+        <input id="file" class="visually-hidden" type="file" accept=".pkt" />
+      </label>
+
+      <p id="file-info" class="file-info" hidden>
+        <span id="file-name" class="file-name"></span>
+        <span id="file-size" class="file-size"></span>
+      </p>
+
+      <div class="actions">
+        <button id="convert" type="button" class="primary" hidden>Convert</button>
+        <a id="download" class="button primary" hidden>Download XML</a>
+        <button id="reset" type="button" hidden>Convert another</button>
+      </div>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <div id="error-box" class="error-box" hidden>
+        <p id="error-detail" class="error-detail"></p>
+        <button id="diag-copy" type="button">Copy diagnostics</button>
+        <textarea id="diag-text" class="diag-text" readonly rows="8" aria-label="Diagnostics" hidden></textarea>
+      </div>
+
+      <p class="small">
+        For your own files and within your school's rules. Activity files (.pka) and very old Packet Tracer files are not
+        supported.
+      </p>
+    </main>
+
+    <footer>
+      <p>
+        Not affiliated with or endorsed by Cisco. Packet Tracer is a trademark of Cisco Systems, Inc. Conversion
+        algorithm derived from pka2xml (BSD-2-Clause).
+        <a href="/NOTICE.txt">License notice</a>
+      </p>
+    </footer>
+  </body>
+</html>

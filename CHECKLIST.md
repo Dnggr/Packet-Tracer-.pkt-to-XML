@@ -9,7 +9,7 @@ Each task is small enough to finish in **one Claude prompt**. Tick the box when 
 ## Shared context (paste first in every chat)
 
 ```
-I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packet Tracer .pkt to XML, per the attached plan docs (ARCHITECTURE, FILE_STRUCTURE, TECHNICAL_FEASIBILITY, TESTING_PLAN, SECURITY_AND_PRIVACY). Strict TypeScript, zero runtime dependencies, converter code = pure functions on Uint8Array, no DOM. Follow the module boundaries and error codes in ARCHITECTURE sections 2 and 4. Output only the requested file(s), complete and ready to save, with a one-line note on how to verify.
+I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packet Tracer .pkt to XML, per the attached plan docs (ARCHITECTURE, FILE_STRUCTURE, TECHNICAL_FEASIBILITY, TESTING_PLAN, SECURITY_AND_PRIVACY). Strict TypeScript, zero runtime dependencies, converter code = pure functions on Uint8Array, no DOM. Follow the module boundaries and error codes in ARCHITECTURE sections 2 and 4. Output only the requested file(s), complete and ready to save, with a one-line note on how to verify. Follow RULES.md.
 ```
 
 ---
@@ -75,13 +75,13 @@ I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packe
 
 ## 4. Tests (non-UI)
 
-- [ ] **18. validate + errors tests** — `tests/unit/validate.test.ts`
+- [x] **18. validate + errors tests** — `tests/unit/validate.test.ts`
   > Write Vitest tests for validate.ts: empty, 1 to 15 bytes, limit and limit+1, output empty, output without '<', BOM then '<'. Assert exact error codes and stages. Also a test that every code in errors.ts has a non-empty user message. `[paste errors.ts, validate.ts]`
 
-- [ ] **19. stages tests** — `tests/unit/stages.test.ts`
+- [x] **19. stages tests** — `tests/unit/stages.test.ts`
   > Write Vitest tests for stages.ts: deobfuscate1/3 against an independent slow reference implementation using BigInt or explicit int32 wrap, at lengths 0, 1, 2, 46340, 46341, 46342, 50000; plus qUncompress cases for good input, header too large, size mismatch, corrupt zlib. `[paste stages.ts]`
 
-- [ ] **20. convert tests (error codes)** — `tests/unit/convert.test.ts`
+- [x] **20. convert tests (error codes)** — `tests/unit/convert.test.ts`
   > Write Vitest tests for convert.ts using a test-only encrypt pipeline (reverse of the four stages) to build valid containers. Cover TESTING_PLAN T04 to T08, T10, T12 to T15 and T16 (limit boundaries), each asserting the exact code. Include a round-trip at 46341 bytes. `[paste convert.ts, stages.ts, twofish-eax.ts]`
 
 ## 5. Upstream oracle

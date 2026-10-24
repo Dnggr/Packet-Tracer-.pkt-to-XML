@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# Moves the planning documents into docs/ and rewrites README.md links to match.
-# Run once from the repository root:  bash scripts/move-docs.sh
-# Safe to re-run. Works with GNU or BSD sed (Linux, macOS, Git Bash, WSL).
 set -euo pipefail
 
 DOCS=(
@@ -22,7 +19,6 @@ for f in "${DOCS[@]}"; do
   echo "moved $f -> docs/$f"
 done
 
-# README.md stays at the root. Point its links at docs/ (skips already-fixed links).
 if [ -f README.md ]; then
   pattern=''
   for f in "${DOCS[@]}"; do pattern="${pattern:+$pattern|}${f//./\\.}"; done

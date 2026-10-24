@@ -30,19 +30,19 @@ I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packe
 
 ## 1. Converter foundations
 
-- [ ] **05. errors.ts** — `src/converter/errors.ts`
+- [x] **05. errors.ts** — `src/converter/errors.ts`
   > Write src/converter/errors.ts: the Stage union, all error codes from ARCHITECTURE section 4, a code-to-userMessage map using the exact short messages, and class ConversionError {code, stage, userMessage, detail?}. Imports nothing. Add a helper to wrap unknown errors into E_UNEXPECTED.
 
-- [ ] **06. validate.ts** — `src/converter/validate.ts`
+- [x] **06. validate.ts** — `src/converter/validate.ts`
   > Write src/converter/validate.ts: all numeric limits as named constants (25 MB input, 150 MB output, 16-byte minimum, etc. from SECURITY_AND_PRIVACY section 4), validateInput(bytes) and validateOutput(bytes) throwing ConversionError with the correct codes. validateOutput allows an optional UTF-8 BOM before the leading '<'.
 
-- [ ] **07. Deobfuscate stage 1** — `src/converter/stages.ts` (part 1)
+- [x] **07. Deobfuscate stage 1** — `src/converter/stages.ts` (part 1)
   > In src/converter/stages.ts write deobfuscate1(a: Uint8Array): Uint8Array implementing b[i] = a[L-1-i] XOR low8(L - i*L). Compute the low byte with Math.imul or mod-256 arithmetic so it matches upstream C++ int overflow (see TECHNICAL_FEASIBILITY 4.3). Return a new array; do not mutate the input.
 
-- [ ] **08. Deobfuscate stage 3** — `src/converter/stages.ts` (part 2)
+- [x] **08. Deobfuscate stage 3** — `src/converter/stages.ts` (part 2)
   > Add deobfuscate3(a: Uint8Array): Uint8Array to src/converter/stages.ts implementing b[i] = a[i] XOR low8(L - i), L = a.length. Keep it a pure function, same file style as deobfuscate1. `[paste stages.ts]`
 
-- [ ] **09. qUncompress** — `src/converter/stages.ts` (part 3)
+- [x] **09. qUncompress** — `src/converter/stages.ts` (part 3)
   > Add async qUncompress(data: Uint8Array, maxOutput: number) to stages.ts: read 4-byte big-endian size header, reject if above maxOutput (E_OUTPUT_TOO_LARGE), inflate the zlib stream with DecompressionStream('deflate') using a streaming reader that aborts once output exceeds the cap, and require inflated length to equal the header (E_INFLATE_FAILED). Never allocate the header size up front. `[paste stages.ts]`
 
 ## 2. Twofish-EAX (crypto core)

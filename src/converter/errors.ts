@@ -31,6 +31,13 @@ export const USER_MESSAGES = {
 
 export type ErrorCode = keyof typeof USER_MESSAGES;
 
+export interface ErrorInfo {
+  code: ErrorCode;
+  stage: Stage;
+  userMessage: string;
+  detail?: string;
+}
+
 export class ConversionError extends Error {
   constructor(
     readonly code: ErrorCode,
@@ -45,9 +52,16 @@ export class ConversionError extends Error {
 
 export function toConversionError(e: unknown, stage: Stage): ConversionError {
   if (e instanceof ConversionError) return e;
+  if (e instanceof RangeError) {
+    return new ConversionError('E_OUT_OF_MEMORY', 'worker', `${stage}: ${e.message}`);
+  }
   return new ConversionError(
     'E_UNEXPECTED',
     stage,
     e instanceof Error ? `${e.name}: ${e.message}` : typeof e,
   );
+}
+
+export function toErrorInfo(e: ConversionError): ErrorInfo {
+  return { code: e.code, stage: e.stage, userMessage: e.userMessage, detail: e.detail };
 }

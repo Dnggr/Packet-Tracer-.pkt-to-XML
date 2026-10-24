@@ -47,30 +47,30 @@ I am building pkt2xml-web: a browser-only TypeScript tool converting Cisco Packe
 
 ## 2. Twofish-EAX (crypto core)
 
-- [ ] **10. Twofish-128 block cipher** — `src/converter/twofish-eax.ts` (part 1)
+- [x] **10. Twofish-128 block cipher** — `src/converter/twofish-eax.ts` (part 1)
   > Implement the Twofish block cipher, 128-bit key, encrypt-only block function (EAX needs only encryption), in TypeScript in src/converter/twofish-eax.ts. Precompute key schedule, q-permutations, MDS and h-function. Export createTwofish(key: Uint8Array) => { encryptBlock(block16: Uint8Array): Uint8Array }. Keep it readable with comments mapping to the Twofish spec.
 
-- [ ] **11. Twofish known-answer test** — `tests/unit/twofish-eax.test.ts` (part 1)
+- [x] **11. Twofish known-answer test** — `tests/unit/twofish-eax.test.ts` (part 1)
   > Write Vitest tests for createTwofish using the official Twofish 128-bit known-answer vectors (the zero-key/zero-plaintext vector and the iterated ones you are certain of). State clearly which vectors you used and from where; do not invent values. `[paste twofish-eax.ts]`
 
-- [ ] **12. OMAC / CMAC** — `src/converter/twofish-eax.ts` (part 2)
+- [x] **12. OMAC / CMAC** — `src/converter/twofish-eax.ts` (part 2)
   > Add OMAC1 (CMAC) over the Twofish block function to twofish-eax.ts: subkey derivation with GF(2^128) doubling, tweak-prefixed OMAC^t(data) as EAX defines it. Pure functions over Uint8Array. `[paste twofish-eax.ts]`
 
-- [ ] **13. CTR + EAX decrypt** — `src/converter/twofish-eax.ts` (part 3)
+- [x] **13. CTR + EAX decrypt** — `src/converter/twofish-eax.ts` (part 3)
   > Add eaxDecrypt(key, nonce, ciphertextWithTag): Uint8Array: 16-byte tag at the end, compute N=OMAC^0(nonce), H=OMAC^1(empty), C=OMAC^2(ciphertext), compare tag in constant time BEFORE returning plaintext, then CTR-decrypt. On mismatch throw ConversionError E_AUTH_FAILED stage decrypt. The module must not contain the Packet Tracer key. `[paste twofish-eax.ts + errors.ts]`
 
-- [ ] **14. EAX known-answer test** — `tests/unit/twofish-eax.test.ts` (part 2)
+- [x] **14. EAX known-answer test** — `tests/unit/twofish-eax.test.ts` (part 2)
   > Add Vitest tests for eaxDecrypt. Because the EAX paper vectors use AES, build an encrypt helper in the test file using the same primitives and test round trips at lengths 0, 1, 15, 16, 17, 100 and 1000, plus bit flips in ciphertext, tag and nonce all giving E_AUTH_FAILED. Note any limitation honestly. `[paste twofish-eax.ts]`
 
 ## 3. Pipeline
 
-- [ ] **15. convert.ts** — `src/converter/convert.ts`
+- [x] **15. convert.ts** — `src/converter/convert.ts`
   > Write src/converter/convert.ts: async convert(bytes, opts?) running validateInput, deobfuscate1, eaxDecrypt (key 0x89 x16, nonce 0x10 x16, no associated data, passed in as constants here), deobfuscate3, qUncompress, validateOutput. Record per-stage timing and in/out byte counts, attribute any thrown error to its stage, and return {xml: Uint8Array, timings}. Output stays raw bytes. `[paste errors, validate, stages, twofish-eax]`
 
-- [ ] **16. worker.ts** — `src/worker.ts`
+- [x] **16. worker.ts** — `src/worker.ts`
   > Write src/worker.ts: receive an ArrayBuffer message, run convert, post back the XML bytes (transferred) or a serialized ConversionError. Wrap everything so no raw exception escapes (E_UNEXPECTED, and E_OUT_OF_MEMORY on allocation failures). No DOM access.
 
-- [ ] **17. diagnostics.ts** — `src/diagnostics.ts`
+- [x] **17. diagnostics.ts** — `src/diagnostics.ts`
   > Write src/diagnostics.ts: random short conversion ID, structured console logging per stage and on failure, and buildDiagnosticsJson() with app version, upstream commit 22fee2681779a6dd764d6562b0a134ceb339e770, ID, code, stage, sizes, user agent. It must never log file names or contents.
 
 ## 4. Tests (non-UI)
